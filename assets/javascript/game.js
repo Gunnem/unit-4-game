@@ -1,41 +1,35 @@
-var yourCharChosen = false;
+var chosenChar = false;
 var fightRound = 0;
-var urHP = 0;
-var urBaseAttackPwr = 0;
-var urAttackPwr = 0;
-var enemyCntrAttackPwr = 0;
-var enemyHP = 0;
+var hp = 0;
+var baseAttack = 0;
+var attackPwr = 0;
+var counterPwr = 0;
+var oppHp = 0;
 
-// TO DO
-
-// 1. Modularize the code
-// 2. Add to Portfolio
 
 function resetPoints() {
-  urHP = $("#urCharacter").children().children("h5").data("health-points");
-  urBaseAttackPwr = $("#urCharacter").children().children("h5").data("base-attack-power");
-  urAttackPwr = $("#urCharacter").children().children("h5").data("attack-power");
-  enemyCntrAttackPwr = $("#enemyCharacter").children().children("h5").data("counter-attack-power");
-  enemyHP = $("#enemyCharacter").children().children("h5").data("health-points");
+  hp = $("#yourChar").children().children("h5").data("health-points");
+  baseAttack = $("#yourChar").children().children("h5").data("base-attack-power");
+  attackPwr = $("#yourChar").children().children("h5").data("attack-power");
+  counterPwr = $("#oppChar").children().children("h5").data("counter-attack-power");
+  oppHp = $("#oppChar").children().children("h5").data("health-points");
 }
 
 function displayHealthPoints() {
-  $("#textResultCtnr").html("<div id=\"textResult\">"+"Your health is "+urHP+
-  "</div><div id=\"textResult\">"+"Enemy health is "+enemyHP+"</div>"+ "<br>"+
-  "<div id=\"textResult\">"+"Your attack power is "+urBaseAttackPwr+"</div>" +
-  "<div id=\"textResult\">"+"Enemy counter attack power is "+enemyCntrAttackPwr+"</div>");
+  $("#textResultCtnr").html("<div id=\"textResult\">"+"Your health is "+hp+
+  "</div><div id=\"textResult\">"+"Enemy health is "+oppHp+"</div>"+ "<br>"+
+  "<div id=\"textResult\">"+"Your attack power is "+baseAttack+"</div>" +
+  "<div id=\"textResult\">"+"Enemy counter attack power is "+counterPwr+"</div>");
 
-  $("#urCharacter").children().children("div.card-body").children(".card-text").text(urHP + " Health Points");
-  $("#enemyCharacter").children().children("div.card-body").children(".card-text").text(enemyHP + " Health Points");
-
-
+  $("#yourChar").children().children("div.card-body").children(".card-text").text(hp + " Health Points");
+  $("#oppChar").children().children("div.card-body").children(".card-text").text(oppHp + " Health Points");
 }
 
 function logEveryonesHealth() {
-  console.log("Your health is " + urHP);
-  console.log("Your Base Attack Power is " + urBaseAttackPwr);
-  console.log("Enemy Attack Power is " + enemyCntrAttackPwr);
-  console.log("Enemy Health Power is " + enemyHP);
+  console.log("Your health is " + hp);
+  console.log("Your Base Attack Power is " + baseAttack);
+  console.log("Enemy Attack Power is " + counterPwr);
+  console.log("Enemy Health Power is " + oppHp);
 }
 
 function toggleFightBtn(isOn) {
@@ -69,11 +63,11 @@ function addNewGameEvent() {
 }
 
 function isGameOver() {
-  if (enemyHP <= 0) {
+  if (oppHp <= 0) {
     //Enemy has lost
 
-    var lastEnemyName = $("#enemyCharacter").children().children("h5").text();
-    $("#enemyCharacter").children().remove();
+    var lastEnemyName = $("#oppChar").children().children("h5").text();
+    $("#oppChar").children().remove();
 
       if(fightRound<2) {
         updateScoreBoard("inprogress",lastEnemyName);
@@ -86,7 +80,7 @@ function isGameOver() {
       toggleFightBtn(true);
       fightRound++;
   }
-  else if (urHP <= 0) {
+  else if (hp <= 0) {
     //You have lost
     updateScoreBoard("lost",lastEnemyName);
     addNewGameEvent();
@@ -103,16 +97,16 @@ function fight() {
   console.log("************ Before deduction ***************");
   logEveryonesHealth();
 
-  $("#urCharacter").children().children("h5").data("health-points", urHP - enemyCntrAttackPwr);
-  $("#enemyCharacter").children().children("h5").data("health-points", enemyHP - urBaseAttackPwr);
-  $("#urCharacter").children().children("h5").data("base-attack-power", urBaseAttackPwr + urAttackPwr);
+  $("#yourChar").children().children("h5").data("health-points", hp - counterPwr);
+  $("#oppChar").children().children("h5").data("health-points", oppHp - baseAttack);
+  $("#yourChar").children().children("h5").data("base-attack-power", baseAttack + attackPwr);
 
   resetPoints();
 
   console.log("************ After deduction ***************");
 
   logEveryonesHealth();
-  displayHealthPoints(urHP,enemyHP);
+  displayHealthPoints(hp,oppHp);
 
   isGameOver();
 }
@@ -120,22 +114,22 @@ function fight() {
 $("a").on("click", function(event) {
 
   var currentContainer = $(this).parent().parent();
-  if (!yourCharChosen) {
+  if (!chosenChar) {
     //choosing your character
     $(this).toggleClass("disabled", true);
     currentContainer.removeClass("backstage");
     resizeContainers(currentContainer,"col-xs-3","col-xs-4")
-    $("#urCharacter").append(currentContainer);
+    $("#yourChar").append(currentContainer);
     $("#titleLetter").text("Choose enemy character");
     resizeContainers($(".backstage"),"col-xs-3","col-xs-4");
-    $(this).replaceWith('<div id="urCharacterLabel">Your Character<div>');
-    yourCharChosen = true;
+    $(this).replaceWith('<div id="yourCharLabel">Your Character<div>');
+    chosenChar = true;
   } else {
     //choosing enemy character
     $(this).toggleClass("disabled", true);
     currentContainer.removeClass("backstage");
     if (fightRound == 0) {
-      $("#enemyCharacter").append(currentContainer);
+      $("#oppChar").append(currentContainer);
       resizeContainers($(".backstage"),"col-xs-4", "col-xs-6");
       $("#fytBtnCtnr").append(
         '<button id="fytBtn" class="btn btn-danger">Fight</button>'
@@ -150,17 +144,17 @@ $("a").on("click", function(event) {
       toggleFightBtn(false);
       resizeContainers($(".backstage"),"col-xs-6","col-xs-12");
       resizeContainers(currentContainer,"col-xs-6","col-xs-4")
-      $("#enemyCharacter").append(currentContainer);
+      $("#oppChar").append(currentContainer);
       resetPoints();
       displayHealthPoints();
     } else if (fightRound == 2) {
       toggleFightBtn(false);
       resizeContainers(currentContainer,"col-xs-12","col-xs-4")
-      $("#enemyCharacter").append(currentContainer);
+      $("#oppChar").append(currentContainer);
       resetPoints();
       displayHealthPoints();
     }
-    $(this).replaceWith('<div id="enemyCharacterLabel">Your Enemy<div>');
+    $(this).replaceWith('<div id="oppCharLabel">Your Enemy<div>');
     $(".backstage a").toggleClass("disabled", true);
   }
 });
