@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,49 +9,47 @@
     <link rel="stylesheet" href="./assets/css/reset.css">
     <link rel="stylesheet" href="./assets/css/style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 
 <body>
-    <h1 class="text-white text-center", >Starship vs. Starship Battle - RPG</h1>
+    <h1 class="text-white text-center">Starship vs. Starship Battle - RPG</h1>
     <!-- <hr> -->
-
-
     <div class="container">
-        <h2 class="text-white text-center" id="titleLetter">Choose your Ship</h2>
+        <div class="row">
+            <h2 class="text-white text-center" id="titleLetter">Choose your Ship</h2>
+        </div>
         <br>
         <br>
         <div class="row">
             <div class="card backstage col-xs-3">
-
+                <h5 data-health-points="1300" data-base-attack-power="80" data-attack-power="90" data-counter-attack-power="200" class="card-header">USS Enterprise 1701D</h5>
                 <img class="card-img-top img-thumbnail img-responsive characters" src="./assets/images/ncc1701d.png" alt="">
                 <div class="card-body">
-                    <h5 data-health-points="1300" data-base-attack-power="80" data-attack-power="90" data-counter-attack-power="200" class="card-header">USS Enterprise 1701D</h5>
                     <p class="card-text">1300 Health Points</p>
                     <a href="#" id="entBtn" class="btn btn-primary">Choose</a>
                 </div>
             </div>
             <div class="card backstage col-xs-3">
+                <h5 data-health-points="1600" data-base-attack-power="70" data-attack-power="70" data-counter-attack-power="100" class="card-header">Imperial Star Destroyer</h5>
                 <img class="card-img-top img-thumbnail img-responsive characters" src="./assets/images/stardest.png" alt="">
                 <div class="card-body">
-                    <h5 data-health-points="1600" data-base-attack-power="70" data-attack-power="70" data-counter-attack-power="100" class="card-header">Imperial Star Destroyer</h5>
                     <p class="card-text">1600 Health Points</p>
                     <a href="#" id="impBtn" class="btn btn-primary">Choose</a>
                 </div>
             </div>
             <div class="card backstage col-xs-3">
+                <h5 data-health-points="1500" data-base-attack-power="60" data-attack-power="80" data-counter-attack-power="150" class="card-header">Battlestar Galactica BSG-75</h5>
                 <img class="card-img-top img-thumbnail img-responsive characters" src="./assets/images/bsg75.png" alt="">
                 <div class="card-body">
-                    <h5 data-health-points="1500" data-base-attack-power="60" data-attack-power="80" data-counter-attack-power="150" class="card-header">Battlestar Galactica BSG-75</h5>
                     <p class="card-text">1500 Health Points</p>
                     <a href="#" id="bsgBtn" class="btn btn-primary">Choose</a>
                 </div>
             </div>
             <div class="card backstage col-xs-3">
+                <h5 data-health-points="1800" data-base-attack-power="50" data-attack-power="100" data-counter-attack-power="250" class="card-header">Borg Cube</h5>
                 <img class="card-img-top img-thumbnail img-responsive characters" src="./assets/images/borg.png" alt="">
                 <div class="card-body">
-                    <h5 data-health-points="1800" data-base-attack-power="50" data-attack-power="100" data-counter-attack-power="250" class="card-header">Borg Cube</h5>
                     <p class="card-text">1800 Health Points</p>
                     <a href="#" id="borgBtn" class="btn btn-primary">Choose</a>
                 </div>
@@ -61,11 +60,11 @@
         <br>
         <br>
         <div class="row">
-            <div id="yourChar">
+            <div id="urCharacter">
                 <!-- placeholder for inseting image after  user selects it -->
             </div>
             <div id="fytBtnCtnr" class="col-xs-4">
-                <div id="textResultCtnr">
+                <div class="text-white" id="textResultCtnr">
                     <div>
                         &nbsp;
                     </div>
@@ -82,7 +81,7 @@
                 </div>
                 <!-- placeholder for inseting image after  user selects it -->
             </div>
-            <div id="oppChar">
+            <div id="enemyCharacter">
                 <!-- placeholder for inseting image after  user selects it -->
             </div>
         </div>
@@ -90,4 +89,5 @@
 
 </body>
 <script src="./assets/javascript/game.js"></script>
+
 </html>
